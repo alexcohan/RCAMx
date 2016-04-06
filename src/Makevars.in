@@ -1,0 +1,13 @@
+PKG_FFLAGS1 = -C -byteswapio -Bstatic -Mlarge_arrays -fpic -O2
+FLIBS1 = -pgf90libs -lpgc -lpgf90 -lpgf90_rpm1 -lpgf902 -lpgftnrtl -lpghpf
+RDIR = /usr/@LIBnn@/R/lib
+SYSDIR = @LDFLAGS@
+
+F77 = pgf90
+CC = pgcc
+
+all: $(SHLIB)
+
+HELLO.o: HELLO.f
+	pgf90 $(PKG_FFLAGS1) -c READ_CAMx.f -o READ_CAMx.o && pgcc -shared -L${RDIR} ${SYSDIR} -o READ_CAMx.so READ_CAMx.o $(FLIBS1) -lR
+	$(FC) -c -fPIC HELLO.f -o HELLO.o
