@@ -7,7 +7,7 @@ HEAD1 <- .Fortran("READ_HEAD",ifile=inputAVG,NX=as.integer(1),NY=as.integer(1),N
          ENDTIME=as.single(1),MSPEC=character(200))
 
 MSPEC = unlist(strsplit(HEAD1$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t"]
+MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="azyeval"]
 SPECIESN = as.integer(1:HEAD1$MAXS)
 META_SPEC1 = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
 rm(SPECIESN)
@@ -24,7 +24,7 @@ HEAD2 <- .Fortran("READ_HEAD",ifile=inputMET,NX=as.integer(1),NY=as.integer(1),N
          ENDTIME=as.single(1),MSPEC=character(200))
 
 MSPEC = unlist(strsplit(HEAD2$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t"]
+MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="azyeval"]
 SPECIESN = as.integer(1:HEAD2$MAXS)
 META_SPEC2 = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
 rm(SPECIESN)

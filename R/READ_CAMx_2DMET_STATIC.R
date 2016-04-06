@@ -7,7 +7,7 @@ HEAD <- .Fortran("READ_HEAD_BIG",ifile=input,NX=as.integer(1),NY=as.integer(1),N
          ENDTIME=as.single(1),MSPEC=character(200))
 
 MSPEC = unlist(strsplit(HEAD$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="\001"]
+MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="\001" & MSPEC !="azyeval"]
 SPECIESN = as.integer(1:HEAD$MAXS)
 META_SPEC = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
 
