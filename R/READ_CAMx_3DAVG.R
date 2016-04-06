@@ -32,7 +32,7 @@ rm(MSPEC)
 
 NBIG2 = HEAD2$NX*HEAD2$NY*HEAD2$NZ*24*HEAD2$MAXS
 
-OUT2 <- .Fortran("READ_CAMx_IJK",ifile=inputAVG,NBIG=as.integer(NBIG2),IS=integer(NBIG2),JS=integer(NBIG2),KS=integer(NBIG2),HRS=integer(NBIG2),
+OUT2 <- .Fortran("READ_CAMx_IJK",ifile=inputMET,NBIG=as.integer(NBIG2),IS=integer(NBIG2),JS=integer(NBIG2),KS=integer(NBIG2),HRS=integer(NBIG2),
          SPECIES=integer(NBIG2),CONC=single(NBIG2))
 
 #find ZGRID_M
