@@ -1,5 +1,5 @@
 #' @export
-READ_CAMx_3DEMIS <- function(input,temp="TEMPXX25V367X1.dat",timezone="GMT", addutm = FALSE) {
+READ_CAMx_3DEMIS <- function(input,timezone="GMT", addutm = FALSE, temp="TEMPXX25V367X1.dat") {
 
 system(paste("rm -f",temp,sep=" "),intern = FALSE)
 

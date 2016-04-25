@@ -1,16 +1,16 @@
 #' @export
-READ_CAMx_3DMET <- function(input,timezone="GMT",strp = TRUE, addutm = FALSE) {
+READ_CAMx_3DMET <- function(input,timezone="GMT",strp = TRUE, addutm = FALSE, temp="TEMPXX25V367X1.dat") {
 
+system(paste("rm -f",temp,sep=" "),intern = FALSE)
 
-HEAD <- .Fortran("READ_HEAD",ifile=input,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
+HEAD <- .Fortran("READ_HEAD_BIG2",ifile=input,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
          plon=as.single(1),plat=as.single(1),tlat1=as.single(1),tlat2=as.single(1),XORG=as.single(1),YORG=as.single(1),DX=as.single(1),DY=as.single(1),IDATA=as.integer(1),BEGTIME=as.single(1),
-         ENDTIME=as.single(1),MSPEC=character(200))
+         ENDTIME=as.single(1),ifile2=temp)
 
-MSPEC = unlist(strsplit(HEAD$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="azyeval"]
-SPECIESN = as.integer(1:HEAD$MAXS)
-META_SPEC = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
-
+META_SPEC = read.csv(temp, header = FALSE,stringsAsFactors=FALSE)
+META_SPEC = as.data.frame(META_SPEC)
+names(META_SPEC) = c("SPECIESN","MSPEC")
+system(paste("rm -f",temp,sep=" "),intern = FALSE)
 
 NBIG = HEAD$NX*HEAD$NY*HEAD$NZ*24*HEAD$MAXS
 

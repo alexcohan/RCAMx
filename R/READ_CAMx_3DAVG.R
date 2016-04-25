@@ -1,17 +1,17 @@
 #' @export
-READ_CAMx_3DAVG <- function(inputAVG,inputMET,timezone="GMT",strp = TRUE, addutm = FALSE) {
+READ_CAMx_3DAVG <- function(inputAVG,inputMET,timezone="GMT",strp = TRUE, addutm = FALSE, temp="TEMPXX25V367X1.dat") {
+system(paste("rm -f",temp,sep=" "),intern = FALSE)
 
 #read avg file
-HEAD1 <- .Fortran("READ_HEAD",ifile=inputAVG,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
+HEAD1 <- .Fortran("READ_HEAD_BIG2",ifile=inputAVG,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
          plon=as.single(1),plat=as.single(1),tlat1=as.single(1),tlat2=as.single(1),XORG=as.single(1),YORG=as.single(1),DX=as.single(1),DY=as.single(1),IDATA=as.integer(1),BEGTIME=as.single(1),
-         ENDTIME=as.single(1),MSPEC=character(200))
+         ENDTIME=as.single(1),ifile2=temp)
 
-MSPEC = unlist(strsplit(HEAD1$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="azyeval"]
-SPECIESN = as.integer(1:HEAD1$MAXS)
-META_SPEC1 = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
-rm(SPECIESN)
-rm(MSPEC)
+META_SPEC1 = read.csv(temp, header = FALSE,stringsAsFactors=FALSE)
+META_SPEC1 = as.data.frame(META_SPEC1)
+names(META_SPEC1) = c("SPECIESN","MSPEC")
+system(paste("rm -f",temp,sep=" "),intern = FALSE)
+
 
 NBIG1 = HEAD1$NX*HEAD1$NY*HEAD1$NZ*24*HEAD1$MAXS
 
@@ -19,16 +19,14 @@ OUT1 <- .Fortran("READ_CAMx_IJK",ifile=inputAVG,NBIG=as.integer(NBIG1),IS=intege
          SPECIES=integer(NBIG1),CONC=single(NBIG1))
 
 #read 3dmet file
-HEAD2 <- .Fortran("READ_HEAD",ifile=inputMET,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
+HEAD2 <- .Fortran("READ_HEAD_BIG2",ifile=inputMET,NX=as.integer(1),NY=as.integer(1),NZ=as.integer(1),MAXS=as.integer(1),
          plon=as.single(1),plat=as.single(1),tlat1=as.single(1),tlat2=as.single(1),XORG=as.single(1),YORG=as.single(1),DX=as.single(1),DY=as.single(1),IDATA=as.integer(1),BEGTIME=as.single(1),
-         ENDTIME=as.single(1),MSPEC=character(200))
+         ENDTIME=as.single(1),ifile2=temp)
 
-MSPEC = unlist(strsplit(HEAD2$MSPEC, " "))
-MSPEC = MSPEC[MSPEC !="" & MSPEC !="\t" & MSPEC !="azyeval"]
-SPECIESN = as.integer(1:HEAD2$MAXS)
-META_SPEC2 = data.frame(SPECIESN,MSPEC, stringsAsFactors=FALSE)
-rm(SPECIESN)
-rm(MSPEC)
+META_SPEC2 = read.csv(temp, header = FALSE,stringsAsFactors=FALSE)
+META_SPEC2 = as.data.frame(META_SPEC2)
+names(META_SPEC2) = c("SPECIESN","MSPEC")
+system(paste("rm -f",temp,sep=" "),intern = FALSE)
 
 NBIG2 = HEAD2$NX*HEAD2$NY*HEAD2$NZ*24*HEAD2$MAXS
 

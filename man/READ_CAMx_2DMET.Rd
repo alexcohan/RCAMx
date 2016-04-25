@@ -6,7 +6,7 @@
 }
 \usage{
 READ_CAMx_2DMET(input,timezone="GMT", 
-strp = TRUE, addutm = FALSE)
+strp = TRUE, addutm = FALSE, temp="TEMPXX25V367X1.dat")
 }
 \arguments{
   \item{input}{Input data file of CAMx 2D met in UAM format.}
@@ -17,4 +17,6 @@ strp = TRUE, addutm = FALSE)
 
   \item{addutm}{Optional flag to include model utm coordinates in
 output data frame.}
+
+  \item{temp}{Temporary file used to store species names.  RCAMx needs access to read and write this file.}
 }
