@@ -1,4 +1,4 @@
 importFrom(dplyr,left_join)
 importFrom(tidyr,spread)
-useDynLib(READ_CAMx)
+useDynLib(RCAMx)
 export(READ_CAMx_3DEMIS, READ_CAMx_2DEMIS, READ_CAMx_2DMET_STATIC, READ_CAMx_2DMET, READ_CAMx_3DAVG, READ_CAMx_3DMET, READ_CAMx_2DAVG, UTM2LL, LL2UTM)

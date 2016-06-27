@@ -1,7 +1,7 @@
 Package: RCAMx
 Type: Package
 Title: RCAMx: Loading Tools for CAMx Files
-Version: 0.1
+Version: 0.2
 Date: 2016-04-05
 Author: Alexander Cohan, Ph.D.
 Maintainer: Alexander Cohan, Ph.D. <cohan@ladco.org>
