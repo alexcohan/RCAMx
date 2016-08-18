@@ -5,6 +5,6 @@ Version: 0.2
 Date: 2016-04-05
 Author: Alexander Cohan, Ph.D.
 Maintainer: Alexander Cohan, Ph.D. <cohan@ladco.org>
-Description: Package of functions to load CAMx files into R data frames.  Requires unix and portland group compilers pgf90 and pgcc.
+Description: Package of functions to load CAMx files into R data frames.  Requires unix.
 License: GPL-2
 Depends: dplyr, tidyr
